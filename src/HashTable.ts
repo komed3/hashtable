@@ -57,4 +57,8 @@ export class HashTable {
         return pfx + hashes.join( '-' ) + sfx;
     }
 
+    public key ( strs: string[], pfx?: string, sfx?: string, sorted: boolean = false ) : string | false {
+        return this.keygen( strs, pfx, sfx, sorted );
+    }
+
 }
