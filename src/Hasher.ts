@@ -1,5 +1,33 @@
 export class Hasher {
 
+    public static fasthash ( str: string ) : number {
+        const len = str.length, limit = len & ~3;
+        let hash = 0x811c9dc5, i = 0;
+
+        for ( ; i < limit; i += 4 ) {
+            const chunk = str.charCodeAt( i ) |
+                ( str.charCodeAt( i + 1 ) << 8 ) |
+                ( str.charCodeAt( i + 2 ) << 16 ) |
+                ( str.charCodeAt( i + 3 ) << 24 );
+
+            hash ^= chunk;
+            hash = Math.imul( hash, 0x01000193 );
+        }
+
+        for ( ; i < len; i++ ) {
+            hash ^= str.charCodeAt( i );
+            hash = Math.imul( hash, 0x01000193 );
+        }
+
+        hash ^= hash >>> 16;
+        hash = Math.imul( hash, 0x85ebca6b );
+        hash ^= hash >>> 13;
+        hash = Math.imul( hash, 0xc2b2ae35 );
+        hash ^= hash >>> 16;
+
+        return hash >>> 0;
+    }
+
     public static fnv1a ( str: string ) : number {
         let hash = 0x811c9dc5;
 
@@ -42,37 +70,9 @@ export class Hasher {
 
         hash ^= len;
         hash ^= hash >>> 16;
-        hash *= 0x85ebca6b;
+        hash *= Math.imul( hash, 0x85ebca6b );
         hash ^= hash >>> 13;
-        hash *= 0xc2b2ae35;
-        hash ^= hash >>> 16;
-
-        return hash >>> 0;
-    }
-
-    public static fasthash ( str: string ) : number {
-        const len = str.length, limit = len & ~3;
-        let hash = 0x811c9dc5, i = 0;
-
-        for ( ; i < limit; i += 4 ) {
-            const chunk = str.charCodeAt( i ) |
-                ( str.charCodeAt( i + 1 ) << 8 ) |
-                ( str.charCodeAt( i + 2 ) << 16 ) |
-                ( str.charCodeAt( i + 3 ) << 24 );
-
-            hash ^= chunk;
-            hash = Math.imul( hash, 0x01000193 );
-        }
-
-        for ( ; i < len; i++ ) {
-            hash ^= str.charCodeAt( i );
-            hash = Math.imul( hash, 0x01000193 );
-        }
-
-        hash ^= hash >>> 16;
-        hash *= 0x85ebca6b;
-        hash ^= hash >>> 13;
-        hash *= 0xc2b2ae35;
+        hash *= Math.imul( hash, 0xc2b2ae35 );
         hash ^= hash >>> 16;
 
         return hash >>> 0;
