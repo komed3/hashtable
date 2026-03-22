@@ -62,7 +62,9 @@ export class HashTable {
 
         if ( sorted ) hashes.sort( ( a, b ) => a - b );
 
-        return pfx + hashes.join( '-' ) + sfx;
+        let key = pfx ?? '';
+        for ( let i = 0; i < n; i++ ) key += hashes[ i ].toString( 36 );
+        return key + sfx;
     }
 
     public key ( strs: string[], pfx?: string, sfx?: string, sorted: boolean = false ) : string | false {
