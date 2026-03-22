@@ -38,11 +38,15 @@ export class HashTable {
         this.fifo = this.options.fifo!;
         this.maxSize = this.options.maxSize!;
 
-        try { this.hashFn = typeof this.options.hash === 'function' ? this.options.hash
-            : this.options.hash = Hasher[ this.options.hash as keyof Hasher ] }
-        catch ( err ) { throw Error ( `Cannot set hash function`, { cause: err } ) }
+        try {
+            this.hashFn = typeof this.options.hash === 'function'
+                ? this.options.hash
+                : Hasher[ this.options.hash as keyof Hasher ]
+        } catch ( err ) {
+            throw Error ( `Cannot set hash function`, { cause: err } )
+        }
 
-        try { this.hashFn( '' ) }
+        try { this.hashFn( '', this.seed ) }
         catch ( err ) { throw Error ( `Cannot call hash function`, { cause: err } ) }
     }
 
