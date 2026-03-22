@@ -30,6 +30,7 @@ export class HashTable {
     private readonly hashFn: HashFn;
 
     private table = new Map< string, any > ();
+    private hashCache = new Map< number, string > ();
 
     constructor ( options: HashOptions = {} ) {
         this.options = { ...DEFAULT_OPTIONS, ...options };
@@ -63,7 +64,18 @@ export class HashTable {
         if ( sorted ) hashes.sort( ( a, b ) => a - b );
 
         let key = pfx ?? '';
-        for ( let i = 0; i < n; i++ ) key += hashes[ i ].toString( 36 );
+        for ( let i = 0; i < n; i++ ) {
+            let h = hashes[ i ];
+            let s = this.hashCache.get( h );
+
+            if ( ! s ) {
+                s = h.toString( 36 ).padStart( 7, '0' );
+                this.hashCache.set( h, s );
+            }
+
+            key += s;
+        }
+
         return key + sfx;
     }
 
@@ -85,7 +97,9 @@ export class HashTable {
 
         if ( ! has && this.table.size >= this.maxSize ) {
             if ( ! this.fifo ) return false;
-            this.table.delete( this.table.keys().next().value! );
+
+            const first = this.table.keys().next();
+            if ( ! first.done ) this.table.delete( first.value );
         }
 
         this.table.set( key, entry );
