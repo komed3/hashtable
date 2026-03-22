@@ -1,8 +1,8 @@
 export class Hasher {
 
-    public static fasthash ( str: string ) : number {
+    public static fasthash ( str: string, seed: number = 0x811c9dc5 ) : number {
         const len = str.length, limit = len & ~3;
-        let hash = 0x811c9dc5, i = 0;
+        let hash = seed, i = 0;
 
         for ( ; i < limit; i += 4 ) {
             const chunk = str.charCodeAt( i ) |
@@ -28,8 +28,8 @@ export class Hasher {
         return hash >>> 0;
     }
 
-    public static fnv1a ( str: string ) : number {
-        let hash = 0x811c9dc5;
+    public static fnv1a ( str: string, seed: number = 0x811c9dc5 ) : number {
+        let hash = seed;
 
         for ( let i = 0; i < str.length; i++ ) {
             hash ^= str.charCodeAt( i );
@@ -39,9 +39,9 @@ export class Hasher {
         return hash >>> 0;
     }
 
-    public static murmur3 ( str: string ) : number {
+    public static murmur3 ( str: string, seed: number = 0 ) : number {
         const len = str.length, limit = len & ~3;
-        let hash = 0, i = 0;
+        let hash = seed, i = 0;
 
         for ( ; i < limit; i += 4 ) {
             let chunk = str.charCodeAt( i ) |
