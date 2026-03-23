@@ -28,20 +28,11 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/HashTable.mjs",
-      "require": "./dist/HashTable.cjs",
-      "types": "./dist/HashTable.d.ts"
-    },
-    "./hasher": {
-      "import": "./dist/Hasher.mjs",
-      "require": "./dist/Hasher.cjs",
-      "types": "./dist/Hasher.d.ts"
-    }
-  },
+  "types": "dist/HashTable.d.ts",
+  "main": "dist/HashTable.cjs",
+  "module": "dist/HashTable.mjs",
   "scripts": {
-    "build": "rollup -c && tsc --emitDeclarationOnly"
+    "build": "rollup -c && tsc --emitDeclarationOnly --outFile dist/index.d.ts"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.2",
