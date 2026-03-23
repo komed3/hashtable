@@ -1,6 +1,6 @@
 {
-  "name": "@komed3/hashtable",
-  "description": "Fast and efficient hash table implementation with optimized hash functions",
+  "name": "fastdict",
+  "description": "Fast and efficient dictionary implementation with optimized hash functions",
   "license": "MIT",
   "version": "1.0.0",
   "author": {
@@ -8,7 +8,7 @@
     "email": "webmaster@komed3.de",
     "url": "https://komed3.de"
   },
-  "homepage": "https://github.com/komed3/hashtable",
+  "homepage": "https://github.com/komed3/fastdict",
   "keywords": [
     "hashtable",
     "hash",
@@ -21,10 +21,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/komed3/hashtable.git"
+    "url": "git+https://github.com/komed3/fastdict.git"
   },
   "bugs": {
-    "url": "https://github.com/komed3/hashtable/issues"
+    "url": "https://github.com/komed3/fastdict/issues"
   },
   "funding": {
     "type": "ko-fi",
