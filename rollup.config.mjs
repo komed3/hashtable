@@ -5,7 +5,7 @@ import cleanup from 'rollup-plugin-cleanup';
 import prettier from 'rollup-plugin-prettier';
 
 export default {
-    input: 'src/Dict.ts',
+    input: 'src/index.ts',
     plugins: [
         resolve( { extensions: [ '.js', '.ts' ] } ), commonjs(),
         typescript( { tsconfig: 'tsconfig.json', compilerOptions: { declaration: false } } ),
